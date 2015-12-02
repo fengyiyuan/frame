@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.feng.arch.sdk.mapper.FengUserMapper" >
+  <resultMap id="BaseResultMap" type="com.feng.arch.sdk.po.FengUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="curr_age" property="currAge" jdbcType="INTEGER" />
+    <result column="user_status" property="userStatus" jdbcType="TINYINT" />
+    <result column="mobile_num" property="mobileNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_name, curr_age, user_status, mobile_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from feng_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from feng_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.feng.arch.sdk.po.FengUser" >
+    insert into feng_user (id, user_name, curr_age, 
+      user_status, mobile_num)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{currAge,jdbcType=INTEGER}, 
+      #{userStatus,jdbcType=TINYINT}, #{mobileNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.feng.arch.sdk.po.FengUser" >
+    insert into feng_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="currAge != null" >
+        curr_age,
+      </if>
+      <if test="userStatus != null" >
+        user_status,
+      </if>
+      <if test="mobileNum != null" >
+        mobile_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="currAge != null" >
+        #{currAge,jdbcType=INTEGER},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=TINYINT},
+      </if>
+      <if test="mobileNum != null" >
+        #{mobileNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.feng.arch.sdk.po.FengUser" >
+    update feng_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="currAge != null" >
+        curr_age = #{currAge,jdbcType=INTEGER},
+      </if>
+      <if test="userStatus != null" >
+        user_status = #{userStatus,jdbcType=TINYINT},
+      </if>
+      <if test="mobileNum != null" >
+        mobile_num = #{mobileNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.feng.arch.sdk.po.FengUser" >
+    update feng_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      curr_age = #{currAge,jdbcType=INTEGER},
+      user_status = #{userStatus,jdbcType=TINYINT},
+      mobile_num = #{mobileNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
